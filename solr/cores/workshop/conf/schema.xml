@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="workshop" version="1.5">
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldtype name="sfloat" class="solr.SortableFloatField" sortMissingLast="true" omitNorms="true"/>
+        <fieldtype name="float" class="solr.FloatField" omitNorms="true"/>
+        <fieldtype name="date" class="solr.IntField" omitNorms="true"/>
+
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="tint" class="solr.TrieField" precisionStep="8" positionIncrementGap="0"/>
+        <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+
+        <!-- genel text tipi  belirtilen kelimeleri durdurup büyük harfleri küçültür
+            Türkçe ekleri kaldırır. Bu durum indexler ve sorgular için geçerlidir.
+             Yalnızca query çalışırken siz göre eş anlamlılar olarak belirlediklerinizi ilgili hedefe yönlendirir
+        -->
+        <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TurkishLowerCaseFilterFactory"/>
+                <filter class="solr.SnowballPorterFilterFactory" language="Turkish" />
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TurkishLowerCaseFilterFactory"/>
+                <filter class="solr.SnowballPorterFilterFactory" language="Turkish" />
+            </analyzer>
+        </fieldType>
+
+        <fieldType name="text_ascii" class="solr.TextField">
+            <analyzer>
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.ASCIIFoldingFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+
+
+    <fields>
+        <field name="id" type="string" indexed="true" stored="true" omitNorms="true"/>
+        <field name="name" type="text_general" indexed="true" omitNorms="true"/>
+        <field name="category" type="text_general" indexed="true" multiValued="true" omitNorms="true"/>
+        <field name="price" type="sfloat" indexed="true" omitNorms="false"/>
+        <field name="description" type="text_general" indexed="true" omitNorms="true"/>
+        <field name="color" type="text_general" indexed="true" multiValued="true" omitNorms="false"/>
+        <field name="updated_at" type="date" indexed="true" omitNorms="false"/>
+        <field name="created_at" type="date" indexed="true" omitNorms="false"/>
+
+        <!-- Kopya ile veri alacak fieldlar -->
+        <field name="text" type="text_ascii" indexed="true" multiValued="true" omitNorms="true"/>
+        <field name="suggestions" type="text_general" indexed="true" multiValued="true" omitNorms="true"/>
+
+        <copyField source="name" dest="suggestions"/>
+        <copyField source="category" dest="suggestions"/>
+        <copyField source="price" dest="suggestions"/>
+        <copyField source="description" dest="suggestions"/>
+        <copyField source="color" dest="suggestions"/>
+
+
+        <dynamicField name="score_*" type="float" indexed="true" stored="true" multiValued="false" omitNorms="true"/>
+        <dynamicField name="*_b" type="boolean" indexed="true" stored="true" />
+        <dynamicField name="facet_*"  type="string"  indexed="true"  stored="false" multiValued="true" omitNorms="true"/>
+
+        <copyField source="name" dest="text"/>
+        <copyField source="category" dest="text"/>
+        <copyField source="price" dest="text"/>
+        <copyField source="description" dest="text"/>
+        <copyField source="color" dest="text"/>
+    </fields>
+
+    <uniqueKey>id</uniqueKey>
+    <solrQueryParser defaultOperator="AND"/>
+    <defaultSearchField>id</defaultSearchField>
+</schema>
