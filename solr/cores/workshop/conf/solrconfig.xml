@@ -35,7 +35,7 @@
             <str name="facet">true</str>
             <str name="facet.mincount">1</str>
             <str name="wt">json</str>
-            <str name="qf">category^3.0 color^1 title^0.7 description^0.2 text^0.1</str>
+            <str name="qf">category^3.0 color^1 name^0.7 description^0.2 text^0.1</str>
             <str name="json.nl">map</str>
             <float name="tie">0.01</float>
         </lst>
@@ -51,9 +51,17 @@
             <str name="facet.mincount">0</str>
             <str name="wt">json</str>
             <str name="json.nl">map</str>
-            <str name="qf">category^3.0 color^1 title^0.7 description^0.2 text^0.1</str>
+            <str name="qf">category^3.0 color^1 name^0.7 description^0.2 text^0.1</str>
             <str name="mm">100%</str>
             <int name="ps">100</int>
+
+            <!-- Highlighting defaults -->
+            <str name="hl">on</str>
+            <str name="hl.fl">name</str>
+            <str name="hl.simple.pre">&lt;b&gt;</str>
+            <str name="hl.simple.post">&lt;/b&gt;</str>
+            <str name="f.name.hl.fragsize">0</str>
+            <str name="f.name.hl.alternateField">name</str>
 
             <!-- Spellcheck Setting-->
             <str name="defType">dismax</str>

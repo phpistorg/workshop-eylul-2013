@@ -20,7 +20,7 @@ class Importer
     /** @var \Solarium\Core\Client\Client  */
     protected $solrClient;
 
-    protected $chunkSize = 1000;
+    protected $chunkSize = 5000;
 
     public function __construct($container, $solrClient)
     {
@@ -86,6 +86,8 @@ class Importer
                 'price' => $price,
                 'description' => $product->getDescription(),
                 'color' => explode(',', $product->getColor()),
+                'score_product_boost' => $product->getBoost(),
+                'score_random' => $product->getScoreRandom(),
                 'created_at' => $product->getCreatedAt(),
             );
         }

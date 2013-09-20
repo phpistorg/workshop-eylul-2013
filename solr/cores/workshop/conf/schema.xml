@@ -22,6 +22,38 @@
                 <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
                 <filter class="solr.LowerCaseFilterFactory"/>
                 <filter class="solr.TurkishLowerCaseFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TurkishLowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <fieldType name="text_general_2" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TurkishLowerCaseFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TurkishLowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+
+        <fieldType name="text_general_3" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TurkishLowerCaseFilterFactory"/>
                 <filter class="solr.SnowballPorterFilterFactory" language="Turkish" />
             </analyzer>
             <analyzer type="query">
@@ -34,9 +66,18 @@
             </analyzer>
         </fieldType>
 
-        <fieldType name="text_ascii" class="solr.TextField">
-            <analyzer>
+        <fieldType name="text_general_4" class="solr.TextField">
+            <analyzer type="index">
                 <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.ASCIIFoldingFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
                 <filter class="solr.ASCIIFoldingFilterFactory"/>
             </analyzer>
         </fieldType>
@@ -49,13 +90,22 @@
         <field name="category" type="text_general" indexed="true" multiValued="true" omitNorms="true"/>
         <field name="price" type="sfloat" indexed="true" omitNorms="false"/>
         <field name="description" type="text_general" indexed="true" omitNorms="true"/>
-        <field name="color" type="text_general" indexed="true" multiValued="true" omitNorms="false"/>
+        <field name="color" type="text_general" indexed="true" multiValued="true" omitNorms="true"/>
         <field name="updated_at" type="date" indexed="true" omitNorms="false"/>
         <field name="created_at" type="date" indexed="true" omitNorms="false"/>
 
         <!-- Kopya ile veri alacak fieldlar -->
-        <field name="text" type="text_ascii" indexed="true" multiValued="true" omitNorms="true"/>
+        <field name="text" type="text_general" indexed="true" multiValued="true" omitNorms="true"/>
+        <field name="text_2" type="text_general_2" indexed="true" multiValued="true" omitNorms="true"/>
+        <field name="text_3" type="text_general_4" indexed="true" multiValued="true" omitNorms="true"/>
         <field name="suggestions" type="text_general" indexed="true" multiValued="true" omitNorms="true"/>
+        <field name="name_2" type="text_general_2" indexed="true" omitNorms="true"/>
+        <field name="name_3" type="text_general_3" indexed="true" omitNorms="true"/>
+        <field name="name_4" type="text_general_4" indexed="true" omitNorms="true"/>
+
+        <copyField source="name" dest="name_2"/>
+        <copyField source="name" dest="name_3"/>
+        <copyField source="name" dest="name_4"/>
 
         <copyField source="name" dest="suggestions"/>
         <copyField source="category" dest="suggestions"/>
@@ -73,6 +123,12 @@
         <copyField source="price" dest="text"/>
         <copyField source="description" dest="text"/>
         <copyField source="color" dest="text"/>
+
+        <copyField source="name" dest="text_2"/>
+        <copyField source="category" dest="text_2"/>
+        <copyField source="price" dest="text_2"/>
+        <copyField source="description" dest="text_2"/>
+        <copyField source="color" dest="text_2"/>
     </fields>
 
     <uniqueKey>id</uniqueKey>

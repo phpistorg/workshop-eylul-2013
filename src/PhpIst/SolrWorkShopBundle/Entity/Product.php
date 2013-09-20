@@ -59,6 +59,13 @@ class Product
     private $color;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="boost", type="integer")
+     */
+    private $boost = 0;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -220,6 +227,28 @@ class Product
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @param int $boost
+     */
+    public function setBoost($boost)
+    {
+        $this->boost = $boost;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBoost()
+    {
+        $boost = ($this->boost !== null) ? $this->boost : 0;
+        return number_format($boost, 5, '.', '');
+    }
+
+    public function getScoreRandom()
+    {
+        return lcg_value();
     }
 
     /**
