@@ -12,4 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductRepository extends EntityRepository
 {
+    public function prepareProductForSolr()
+    {
+        $products = $this->findAll();
+
+        return $products;
+    }
 }

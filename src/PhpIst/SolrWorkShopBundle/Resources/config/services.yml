@@ -1,7 +1,14 @@
 parameters:
-#    php_ist_solr_work_shop.example.class: PhpIst\SolrWorkShopBundle\Example
+#    php_ist.solr_work_shop.repository.product.class: PhpIst\SolrWorkShopBundle\Entity\ProductRepository
 
 services:
-#    php_ist_solr_work_shop.example:
-#        class: %php_ist_solr_work_shop.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    php_ist.solr_work_shop.service.importer:
+        class: PhpIst\SolrWorkShopBundle\Service\Importer
+        arguments: [@service_container, @solarium.client]
+
+    php_ist.solr_work_shop.repository.product:
+            class: PhpIst\SolrWorkShopBundle\Entity\ProductRepository
+            factory_service: doctrine.orm.entity_manager
+            factory_method:  getRepository
+            arguments:
+                - "PhpIstSolrWorkShopBundle:Product"

@@ -1,0 +1,6 @@
+nelmio_solarium:
+    endpoints:
+        default: %solr.default%
+    clients:
+        default:
+            endpoints: [default]

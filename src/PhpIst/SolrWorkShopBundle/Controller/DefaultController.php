@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction($category = '')
     {
-        return $this->render('PhpIstSolrWorkShopBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('PhpIstSolrWorkShopBundle:Default:index.html.twig', array('name' => $category));
     }
 }
