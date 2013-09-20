@@ -1,3 +1,7 @@
 php_ist_solr_work_shop_homepage:
     pattern:  /{category}
     defaults: { _controller: PhpIstSolrWorkShopBundle:Default:index, category:'' }
+
+php_ist_solr_work_shop_suggest:
+    pattern:  /suggest/{q}
+    defaults: { _controller: PhpIstSolrWorkShopBundle:Default:suggest}

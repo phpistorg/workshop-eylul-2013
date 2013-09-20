@@ -6,6 +6,10 @@ services:
         class: PhpIst\SolrWorkShopBundle\Service\Importer
         arguments: [@service_container, @solarium.client]
 
+    php_ist.solr_work_shop.service.searcher:
+        class: PhpIst\SolrWorkShopBundle\Service\Searcher
+        arguments: [@service_container, @solarium.client]
+
     php_ist.solr_work_shop.repository.product:
             class: PhpIst\SolrWorkShopBundle\Entity\ProductRepository
             factory_service: doctrine.orm.entity_manager
