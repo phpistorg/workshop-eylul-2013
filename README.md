@@ -35,7 +35,11 @@ parameters.yml dosyasına göre veritabanı açarsanız dökümanın ilerleyen k
 
     mysql -uroot -proot workshop < workshop-eylul-2013/data/workshop_product.sql
 
-6) Sorgular
+6) Dataların aktarımı
+
+    app/console solr:import full
+
+7) Sorgular
 
 http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1z%C4%B1%20kol&wt=xml&fl=*,score&indent=true&facet.field=name&facet.field=name_2&facet.field=name_3&facet.field=name_4&facet.mincount=0
 
@@ -46,6 +50,10 @@ http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1&wt=xml&fl=*,score&i
 http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1%20ayakk&wt=xml&fl=*,score&indent=true&facet.field=text&facet.field=text_2&facet.mincount=1
 
 http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1%20ayakka&wt=xml&fl=*,score&indent=true&facet.field=text&facet.field=text_2&facet.mincount=1
+
+Kelime kökü örneği
+
+http://localhost:8983/solr/workshop/select?q=name_3:k%C4%B1rm%C4%B1z%C4%B1&debugQuery=true&wt=xml&fl=*,score&indent=true
 
 
 

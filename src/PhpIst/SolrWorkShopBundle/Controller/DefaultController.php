@@ -16,8 +16,7 @@ class DefaultController extends Controller
     {
         /** @var \PhpIst\SolrWorkShopBundle\Service\Searcher $searchService */
         $searchService = $this->get('php_ist.solr_work_shop.service.searcher');
-        $return = $searchService->ge
-        tSuggestions($q);
+        $return = $searchService->getSuggestions($q);
 
         $response = new JsonResponse($return);
 

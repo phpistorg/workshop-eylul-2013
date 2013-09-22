@@ -195,6 +195,8 @@ class Searcher
                 'facet_field' => true
             ),
         );
+
+        return $facet;
     }
 
     protected function setFacets(Query $query)
@@ -202,7 +204,6 @@ class Searcher
         $facets = $this->getAvailableFacets();
 
         $facetSet = $query->getFacetSet();
-        $stats = false;
         foreach ($facets as $facet) {
             if ($facet['facet_field'] == true) {
                 /** TODO Fix it */
