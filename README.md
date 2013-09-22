@@ -41,19 +41,33 @@ parameters.yml dosyasına göre veritabanı açarsanız dökümanın ilerleyen k
 
 7) Sorgular
 
-http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1z%C4%B1%20kol&wt=xml&fl=*,score&indent=true&facet.field=name&facet.field=name_2&facet.field=name_3&facet.field=name_4&facet.mincount=0
+    http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1z%C4%B1%20kol&wt=xml&fl=*,score&indent=true&facet.field=name&facet.field=name_2&facet.field=name_3&facet.field=name_4&facet.mincount=0
 
 Bunu mu demek istediniz ?
 
-http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1&wt=xml&fl=*,score&indent=true
+    http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1&wt=xml&fl=*,score&indent=true
 
-http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1%20ayakk&wt=xml&fl=*,score&indent=true&facet.field=text&facet.field=text_2&facet.mincount=1
+    http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1%20ayakk&wt=xml&fl=*,score&indent=true&facet.field=text&facet.field=text_2&facet.mincount=1
 
-http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1%20ayakka&wt=xml&fl=*,score&indent=true&facet.field=text&facet.field=text_2&facet.mincount=1
+    http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1%20ayakka&wt=xml&fl=*,score&indent=true&facet.field=text&facet.field=text_2&facet.mincount=1
 
 Kelime kökü örneği
 
-http://localhost:8983/solr/workshop/select?q=name_3:k%C4%B1rm%C4%B1z%C4%B1&debugQuery=true&wt=xml&fl=*,score&indent=true
+    http://localhost:8983/solr/workshop/select?q=name_3:k%C4%B1rm%C4%B1z%C4%B1&debugQuery=true&wt=xml&fl=*,score&indent=true
+
+Boost örnekleri;
+(field da geçen tam kelime gerekli, dismax)
+    http://localhost:8983/solr/workshop/select?defType=dismax&q=sakat&wt=xml&fl=*,score&indent=true&bq=category:saat^5.0
+    http://localhost:8983/solr/workshop/select?defType=dismax&q=sakat&wt=xml&fl=*,score&indent=true&bq=category:%C3%A7izme^5.0
+
+(score değerlerine dikkat )
+
+    http://localhost:8983/solr/workshop/select?defType=edismax&q=sa*&wt=xml&fl=*,score&indent=true&qf=name
+
+
+
+
+
 
 
 
