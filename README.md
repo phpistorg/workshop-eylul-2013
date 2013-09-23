@@ -33,7 +33,7 @@ parameters.yml dosyasına göre veritabanı açarsanız dökümanın ilerleyen k
 
 5) Örnek verileri yükleme
 
-    mysql -uroot -proot workshop < workshop-eylul-2013/data/workshop_product.sql
+    mysql -uroot -proot workshop < workshop-eylul-2013/data/workshop.sql
 
 6) Dataların aktarımı
 
@@ -57,6 +57,7 @@ Kelime kökü örneği
 
 Boost örnekleri;
 (field da geçen tam kelime gerekli, dismax)
+
     http://localhost:8983/solr/workshop/select?defType=dismax&q=sakat&wt=xml&fl=*,score&indent=true&bq=category:saat^5.0
     http://localhost:8983/solr/workshop/select?defType=dismax&q=sakat&wt=xml&fl=*,score&indent=true&bq=category:%C3%A7izme^5.0
 
