@@ -27,7 +27,7 @@
     mysql -uroot -proot workshop < workshop-eylul-2013/data/workshop.sql
 
 ### Dataların aktarımı
-    app/console solr:import full
+    php app/console solr:import full
 
 ### Sorgular
     http://localhost:8983/solr/workshop/browse?q=k%C4%B1rm%C4%B1z%C4%B1%20kol&wt=xml&fl=*,score&indent=true&facet.field=name&facet.field=name_2&facet.field=name_3&facet.field=name_4&facet.mincount=0
