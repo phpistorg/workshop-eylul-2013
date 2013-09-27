@@ -25,7 +25,7 @@ class Searcher
 
     protected $sortDirection = 'desc';
 
-    protected $defaultScoring = 'sum(product(0.6,score_product_boost),product(0.05,score_random))';
+    protected $defaultScoring = 'sum(product(0.6,score_product_boost),product(1.6,score_product_boost_2),product(0.05,score_random))';
 
     protected $isIndent = false;
 

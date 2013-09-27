@@ -48,6 +48,10 @@
 
     http://localhost:8983/solr/workshop/select?defType=dismax&q=sakat&wt=xml&fl=*,score&indent=true&bq=category:saat^5.0
     http://localhost:8983/solr/workshop/select?defType=dismax&q=sakat&wt=xml&fl=*,score&indent=true&bq=category:%C3%A7izme^5.0
+    http://localhost:8983/solr/workshop/select?defType=edismax&q=sakat&wt=xml&fl=*,score&indent=true&boost=score_product_boost
+
+    http://localhost:8983/solr/workshop/select?defType=edismax&q=sakat&wt=xml&fl=*,score&sort=sum(product(0.9,score_product_boost),product(0.0,score_product_boost_2))+desc
+    http://localhost:8983/solr/workshop/select?defType=edismax&q=sakat&wt=xml&fl=*,score&sort=sum(product(0.9,score_product_boost),product(0.1,score_product_boost_2))+desc
 
 (score değerlerine dikkat)
 

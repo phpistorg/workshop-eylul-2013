@@ -66,6 +66,13 @@ class Product
     private $boost = 0;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="boost_2", type="integer")
+     */
+    private $boost2 = 0;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -243,8 +250,28 @@ class Product
     public function getBoost()
     {
         $boost = ($this->boost !== null) ? $this->boost : 0;
-        return number_format($boost, 5, '.', '');
+
+        return number_format(($boost/200 + 0.5), 4, '.', '');
     }
+
+    /**
+     * @param int $boost2
+     */
+    public function setBoost2($boost2)
+    {
+        $this->boost2 = $boost2;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBoost2()
+    {
+        $boost = ($this->boost2 !== null) ? $this->boost2 : 0;
+
+        return number_format(($boost/200 + 0.5), 4, '.', '');
+    }
+
 
     public function getScoreRandom()
     {

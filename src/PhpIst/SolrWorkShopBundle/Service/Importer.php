@@ -87,6 +87,7 @@ class Importer
                 'description' => $product->getDescription(),
                 'color' => explode(',', $product->getColor()),
                 'score_product_boost' => $product->getBoost(),
+                'score_product_boost_2' => $product->getBoost2(),
                 'score_random' => $product->getScoreRandom(),
                 'created_at' => $product->getCreatedAt(),
             );
