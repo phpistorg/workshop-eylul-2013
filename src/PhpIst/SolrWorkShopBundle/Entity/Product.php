@@ -32,7 +32,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=1000)
+     * @ORM\Column(name="description", type="string", length=1000, nullable=true)
      */
     private $description;
 
@@ -46,7 +46,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="category_tree", type="string", length=255)
+     * @ORM\Column(name="category_tree", type="string", length=255, nullable=true)
      */
     private $categoryTree;
 
@@ -54,7 +54,7 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="color", type="string", length=100)
+     * @ORM\Column(name="color", type="string", length=100, nullable=true)
      */
     private $color;
 
@@ -241,6 +241,8 @@ class Product
      */
     public function setBoost($boost)
     {
+        $this->checkBoostValue($boost);
+
         $this->boost = $boost;
     }
 
@@ -259,7 +261,15 @@ class Product
      */
     public function setBoost2($boost2)
     {
+        $this->checkBoostValue($boost2);
         $this->boost2 = $boost2;
+    }
+
+    protected function checkBoostValue($boost)
+    {
+        if ($boost < -100 || $boost > 100) {
+            throw new \InvalidArgumentException("Boost değeri -100 ile 100 arasında olmalı");
+        }
     }
 
     /**
