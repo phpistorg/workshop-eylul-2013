@@ -19,10 +19,10 @@ monolog:
             level: debug
         firephp:
             type:  firephp
-            level: info
+            level: INFO
         chromephp:
             type:  chromephp
-            level: info
+            level: INFO
 
 assetic:
     use_controller: true
